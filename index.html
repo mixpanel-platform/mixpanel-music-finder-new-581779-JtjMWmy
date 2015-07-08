@@ -184,6 +184,7 @@ span.edit {
     </script>
 
     <script id="initialize" type="text/ractive">
+    // $('#sm_content_box > div.sm_content.management > div:nth-child(6) > div.value > div').html().trim()
       <div>
           <table>
             <tr><td>
@@ -225,7 +226,9 @@ span.edit {
           <label><input type="radio" name="{{edit}}" value="{{true}}">Edit Mode</label>
         </fieldset>
         <p> currently in edit mode? <span class="edit">{{edit}}</span></p>
-        {{#if edit}}<input type="button" value="Save your spec" on-click="saveSpec()">{{/if}}
+        {{#if edit}}<input type="button" value="Save your spec" on-click="saveSpec()">
+        {{else}}<input type="button" value="Check Spec" on-click="checkSpec()"
+        {{/if}}
       </div>
     </script>
 
@@ -445,6 +448,32 @@ span.edit {
               'events': tempEvents
             })
           )
+        },
+        checkSpec: function() {
+          checker = function(name, properties) {
+            MP.api.topProperties(name).done(function(results){
+              if ($.isEmptyObject(results.json)) {
+                $(document.getElementById(name)).css('color', 'red')
+              }
+              propNamesExist = results.json;
+              $.each(properties, function(index, desiredProp) {
+                id = name + "-" + desiredProp
+                console.log(id);
+                if (propNamesExist[desiredProp]) {
+                  console.log('boop')
+                  $(document.getElementById(id)).css('color', 'green');
+                } else {
+                  $(document.getElementById(id)).css('color', 'red');
+                }
+              })
+            })
+          }
+          $.each(spec, function(index, eventInfo) { 
+            currentEvent = eventInfo
+            eventName = currentEvent[0];
+            eventProps = currentEvent[1];
+            checker(eventName, eventProps);
+          });
         },
         makeEditable: function ( keypath ) {
           console.log(keypath)
