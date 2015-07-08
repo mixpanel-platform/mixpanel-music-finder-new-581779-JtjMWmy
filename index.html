@@ -269,7 +269,7 @@ span.edit {
         {{#each .events:i}}
         <div class="specItem">
           <div class="eventName {{ .editing ? 'editing' : ''}}"
-            id="{{.events[i]}}"
+            id="{{.name}}"
             on-dblclick="makeEditable( event.keypath )">{{.name}}</div>
           {{#if .editing}}
           <div class="edit-container">
@@ -284,7 +284,7 @@ span.edit {
             {{#each .properties:j}}
             <div class="propertyName {{ .editing ? 'editing': ''}}"
                on-dblclick="makeEditable( event.keypath )"
-               id="{{.events[i]}}-{{.properties[j]}}">{{.name}}</div>
+               id="{{workingSpec.events.name}}-{{workingSpec.properties.name}}">{{.name}}</div>
             {{#if .editing}}
             <div class="edit-container">
               <input
@@ -456,13 +456,13 @@ span.edit {
         checkSpec: function() {
           checker = function(name, properties) {
             MP.api.topProperties(name).done(function(results){
-              debugger
               if ($.isEmptyObject(results.json)) {
                 $(document.getElementById(name)).css('color', 'red')
               }
               propNamesExist = results.json;
               $.each(properties, function(index, desiredProp) {
-                id = name + "-" + desiredProp
+                debugger
+                id = name + "-" + desiredProp.name
                 console.log(id);
                 if (propNamesExist[desiredProp]) {
                   console.log('boop')
