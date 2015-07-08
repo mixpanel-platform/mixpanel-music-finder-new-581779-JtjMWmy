@@ -269,6 +269,7 @@ span.edit {
         {{#each .events:i}}
         <div class="specItem">
           <div class="eventName {{ .editing ? 'editing' : ''}}"
+            id="{{.events[i]}}"
             on-dblclick="makeEditable( event.keypath )">{{.name}}</div>
           {{#if .editing}}
           <div class="edit-container">
@@ -282,7 +283,8 @@ span.edit {
           {{/if}}
             {{#each .properties:j}}
             <div class="propertyName {{ .editing ? 'editing': ''}}"
-               on-dblclick="makeEditable( event.keypath )">{{.name}}</div>
+               on-dblclick="makeEditable( event.keypath )"
+               id="{{.events[i]}}-{{.properties[j]}}">{{.name}}</div>
             {{#if .editing}}
             <div class="edit-container">
               <input
@@ -454,6 +456,7 @@ span.edit {
         checkSpec: function() {
           checker = function(name, properties) {
             MP.api.topProperties(name).done(function(results){
+              debugger
               if ($.isEmptyObject(results.json)) {
                 $(document.getElementById(name)).css('color', 'red')
               }
@@ -470,12 +473,8 @@ span.edit {
               })
             })
           }
-          debugger
           $.each(ractive.get('workingSpec').events, function(index, eventInfo) { 
-            currentEvent = eventInfo
-            eventName = currentEvent[0];
-            eventProps = currentEvent[1];
-            checker(eventName, eventProps);
+            checker(eventInfo.name, eventInfo.properties);
           });
         },
         makeEditable: function ( keypath ) {
