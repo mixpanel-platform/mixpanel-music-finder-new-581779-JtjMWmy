@@ -471,7 +471,7 @@ span.edit {
             })
           }
           debugger
-          $.each(spec, function(index, eventInfo) { 
+          $.each(ractive.get('workingSpec').events, function(index, eventInfo) { 
             currentEvent = eventInfo
             eventName = currentEvent[0];
             eventProps = currentEvent[1];
