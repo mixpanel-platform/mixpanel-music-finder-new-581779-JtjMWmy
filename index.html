@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -173,6 +174,8 @@ span.edit {
     Still to add
     - a toggle to make all items editable as inputs
       - see the dbl_click behavior of this example http://examples.ractivejs.org/todos
+    $('#sm_content_box > div.sm_content.management > div:nth-child(6) > div.value > div').html().trim()
+    ## http://docs.ractivejs.org/latest/mustaches#variables
     -->
     <script type="text/ractive" id="template">
       {{#if token == ""}}
@@ -184,7 +187,7 @@ span.edit {
     </script>
 
     <script id="initialize" type="text/ractive">
-    // $('#sm_content_box > div.sm_content.management > div:nth-child(6) > div.value > div').html().trim()
+     
       <div>
           <table>
             <tr><td>
@@ -284,7 +287,7 @@ span.edit {
             {{#each .properties:j}}
             <div class="propertyName {{ .editing ? 'editing': ''}}"
                on-dblclick="makeEditable( event.keypath )"
-               id="{{workingSpec.events.name}}-{{workingSpec.properties.name}}">{{.name}}</div>
+               id="{{.events.name}}-{{.name}}">{{.name}}</div>
             {{#if .editing}}
             <div class="edit-container">
               <input
