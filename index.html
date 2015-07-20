@@ -461,6 +461,8 @@ span.edit {
             MP.api.topProperties(name).done(function(results){
               if ($.isEmptyObject(results.json)) {
                 $(document.getElementById(name)).css('color', 'red')
+              } else {
+                $(document.getElementById(name)).css('color', 'green')
               }
               propNamesExist = results.json;
               $.each(properties, function(index, desiredProp) {
