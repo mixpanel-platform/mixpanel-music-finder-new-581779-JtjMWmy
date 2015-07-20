@@ -287,7 +287,7 @@ span.edit {
             {{#each .properties:j}}
             <div class="propertyName {{ .editing ? 'editing': ''}}"
                on-dblclick="makeEditable( event.keypath )"
-               id="{{.events.name}}-{{.name}}">{{.name}}</div>
+               id="{{events[i].name}}-{{events[i].properties[j].name}}">{{.name}}</div>
             {{#if .editing}}
             <div class="edit-container">
               <input
