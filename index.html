@@ -467,7 +467,7 @@ span.edit {
                 debugger
                 id = name + "-" + desiredProp.name
                 console.log(id);
-                if (propNamesExist[desiredProp]) {
+                if (propNamesExist[desiredProp.name]) {
                   console.log('boop')
                   $(document.getElementById(id)).css('color', 'green');
                 } else {
