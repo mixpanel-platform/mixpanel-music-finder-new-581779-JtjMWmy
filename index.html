@@ -1,9 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Spec Checker V2</title>
-</head>
-<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
+    <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
 
-</body>
+<!-- Hillbilly stylesheet -->
+    <style media="screen" type="text/css">
+
+      h1 {
+        font-size:22px;
+        color:#747d94;
+        text-align:center;
+        padding:10px 0 10px 0;
+      }
+
+      h2 {
+        margin-bottom:8px;
+        font-size:14px;
+        color:#747d94;
+        text-align:center;
+      }
+
+      #addEvents {
+        font-size:14px;
+        color:#747d94;
+        background-color:#f9fafb;
+        text-transform:uppercase;
+        font-weight:bold;
+        width:50px;
+        border:1px solid #cbcfd9;
+        height:24px;padding:2px 0 3px 0;
+        border-radius:5px;
+        margin:4px 0 0 76px;
+      }
+
+      #runCheck {
+        font-size:12px;
+        color:#747d94;
+        background-color:#f9fafb;
+        text-transform:uppercase;
+        font-weight:bold;
+        width:200px;
+        border:1px solid #cbcfd9;
+        height:24px;
+        padding:4px 0 4px 0;
+        border-radius:3px;
+        margin:25px 0 0 2px;
+      }
+
+      .circle:before {
+        content: ' \25CF';
+        font-size: 15px;
+        color:red;
+        margin:auto;
+      }
+
+      .notice {
+        font-size:13px;
+        color:#747d94;
+        text-align:center;
+        margin:10px auto 20px auto;
+        padding:0 40px 0 40px;
+      }
+
+      .events {
+        display:block;
+        width:200px;
+        margin:0 20px 10px 20px;
+      }
+
+      .eventInput {
+        margin:0 auto 5px auto;
+        width:100%;
+        font-size:12px;
+        color:#747d94;
+        text-align:center;
+      }
+
+    </style>
+<!-- End hillbilly stylesheet -->
+
+  </head>
+
+  <title>Mixpanel Health Checker</title>
+
+  <body class="mixpanel-platform-body">
+
+    <div class="mixpanel-platform-section">
+
+      <h1>Mixpanel Project Health Checker</h1>
+
+      <div class="notice">
+        Add the events that you would like to check to the list below. If the event has fired in your project in the last 30 days the light will be green. If it has not fired in the last 30 days, the light will be red.<br><br>
+        <strong>Note:</strong> Event names are case sensitive.
+      </div>
+      
+      <!-- Events desired -->
+      <div class="events">
+
+        <div class="fields">
+          <h2>Events</h2>
+          <span id="inputWrapper1">
+            <input class="eventInput" type="text"></input>
+          </span>
+        </div>
+
+        <button id="addEvents">+</button>
+
+        <button id="runCheck">Run</button>
+
+      </div>
+    </div>
+    <script>
+    var i = 1;
+      MP.api.ready(function() {
+
+        // Add an event field when the button is clicked
+        $("#addEvents").click(function() {
+          i++;
+          $(".fields").append("<span id='inputWrapper"+i+"'><input type=text class='eventInput'></input></span>");
+        });
+        
+        // Iterate over input fields and store the values as variables
+
+        var runCheck = function() {
+          var nodes = $(".eventInput")
+          console.log(nodes.value)
+          $(nodes).each(function(index) {
+            console.log(index);
+          });
+        };
+
+        var runQuery = function(eventName) {
+          MP.api.segment(eventName,"$date").done(function(queryResults) {
+            result = queryResults.json[undefined];
+            var sum = 0;
+          });
+          
+        };
+
+        var updateStatus = function(sum,eventName,currentElement) {
+          // Iterate over nodes, if there make it green. If not, make it red.
+        };
+
+        // Run the query every time the field changes.
+        $("#runCheck").on('click', runCheck);
+
+      });
+
+    </script>
+  </body>
 </html>
