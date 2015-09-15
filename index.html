@@ -272,14 +272,18 @@ span.edit {
         <div class="specItem">
           <div class="eventName {{ .editing ? 'editing' : ''}}"
             id="{{.name}}"
-            on-dblclick="makeEditable( event.keypath )">{{.name}}</div>
+            on-dblclick="makeEditable( event.keypath )">
+              {{.name}}
+          </div>
+
           {{#if .editing}}
           <div class="edit-container">
             <input
               decorator='select'
-              class='event edit'
+              class='eventName'
               value="{{.name}}"
               on-blur-change="submitEventEdit( event.keypath, .name)"
+              on-dblclick="saveSpec()"
             >
           </div>
           {{/if}}
@@ -291,9 +295,10 @@ span.edit {
             <div class="edit-container">
               <input
                 decorator='select'
-                class='edit'
+                class='propertyName'
                 value="{{.name}}"
                 on-blur-change="submitPropertyEdit(event, j)"
+                on-dblclick="saveSpec()"
               >
             {{/if}}
             {{/each}}
